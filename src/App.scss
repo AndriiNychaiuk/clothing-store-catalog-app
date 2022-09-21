@@ -1,1 +1,42 @@
-/* not empty */
+.App {
+  &__container {
+    padding: 0 63px;
+  }
+
+  &__header {
+    color: #333;
+  }
+
+  &__footer {
+    color: #fff;
+    background-color: #000;
+  }
+
+  &__title {
+    height: 140px;
+    line-height: 140px;
+    font-family: 'Romanesco', cursive;
+    font-size: 3rem;
+  }
+
+  &__categories {
+    position: sticky;
+    top: 3rem;
+    height: max-content;
+    width: 224px;
+    list-style: none;
+  }
+
+  &__flex {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+.categories {
+  &__item {
+    margin-bottom: 10px;
+    width: inherit;
+  }
+}

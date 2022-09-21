@@ -1,8 +1,14 @@
-body {
-  margin: 0;
+html {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body,
+h2,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: 23px;
 }
