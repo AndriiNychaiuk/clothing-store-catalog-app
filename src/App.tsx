@@ -4,24 +4,40 @@ import { CatalogList } from './components/CatalogList/CatalogList';
 import { Categories } from './components/Categories/Categories';
 import { Product } from './types/Product';
 import clothes from './api/clothes.json'
-
+import { SpecialCategories } from './enums/enums';
+import { GridCatalogButtons } from './components/GridCatalogButtons/GridCatalogButtons';
 
 const App: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
+  const [isSlim, setSlim] = useState(false);
+  const [
+    filterParameter, serFilterParameter
+  ] = useState<string>(SpecialCategories.showAll);
+  const [isMenuOpened, setMenu] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    setProducts(clothes)
+    const allCategories: string[] = [];
+    const { innerWidth } = window;
 
-    const arr: string[] = [];
-
-    for (const cloth of clothes) {
-      if (!arr.includes(cloth.category)) {
-        arr.push(cloth.category);
+    clothes.forEach(cloth => {
+      if (!allCategories.includes(cloth.category)) {
+        allCategories.push(cloth.category) 
       }
+    });
+
+    if (innerWidth < 768) {
+      setIsMobile(true);
     }
 
-    setCategories(arr)
+    setProducts(clothes);
+    setCategories([
+      SpecialCategories.showAll,
+      SpecialCategories.sale,
+      SpecialCategories.bestsellers,
+      ...allCategories,
+    ]);
   }, []);
 
   console.log(products);  
@@ -29,21 +45,48 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <header className="App__header">
+      <div>
         <div className="App__container">
-          <h2 className="App__title">Shop</h2>
+          <header className="App__header">
+            <h2 className="App__title">Shop</h2>
+            {isMobile && (
+              <button
+                type="button"
+                className="App__open-menu"
+                onClick={() => setMenu(!isMenuOpened)}
+              >
+                =
+              </button>
+            )}
+          </header>
         </div>
-      </header>
 
-      <main className="App__main">
-        <div className="App__container">
-          <div className="App__flex">
-            <Categories categories={categories} />
-            <CatalogList products={products} />
+        <main className="App__main">
+          <div className="App__container">
+            <GridCatalogButtons
+              isSlim={isSlim}
+              isMobile={isMobile}
+              onSetSlim={setSlim}
+            />
+
+            <div className="App__flex">
+              <Categories 
+                categories={categories} 
+                filterParameter={filterParameter}
+                isMenuOpened={isMenuOpened}
+                isMobile={isMobile}
+                onSetFilterParameter={serFilterParameter}
+                onCloseMenu={setMenu}
+              />
+              <CatalogList 
+                products={products} 
+                filterParameter={filterParameter} 
+                isSlim={isSlim}
+              />
+            </div>
           </div>
-          
-        </div>
-      </main>
+        </main>
+      </div>
 
       <footer className="App__footer">
         <div className="App__container">

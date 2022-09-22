@@ -1,0 +1,61 @@
+@import '../../SCSS-utils/variables';
+@import '../../SCSS-utils/mixins';
+
+.buttons {
+  position: absolute;
+  top: -30px;
+  right: 50%;
+  display: flex;
+  gap: 10px;
+  transform: translateX(50%);
+
+  @include onTablet {
+    top: -50px;
+    right: 25px;
+    transform: translateX(0);
+  }
+
+  @include onDesktopM {
+    right: 40px;
+  }
+
+  @include onDesktopL {
+    right: 63px;
+  }
+
+  &__button {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    padding: 0;
+    width: 20px;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+  
+    transform: rotate(90deg);
+  
+    @include onTablet {
+      transform: rotate(0);
+    }
+  }
+  
+  &__button-element {
+    width: 9px;
+    height: 9px;
+    box-sizing: border-box;
+    border: 1px solid $text-color-main;
+  
+    &--slim {
+      height: 20px;
+    }
+  
+    &--big {
+      width: 20px;
+    }
+  
+    &--active {
+      border-color: #8a8a8a;
+    }
+  }
+}

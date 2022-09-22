@@ -1,0 +1,7 @@
+@function imageHeigth($width) {
+  @return $width * 1.42;
+};
+
+@function imageHeigthSlim($width) {
+  @return ($width * 2 + 20) * 1.32;
+};

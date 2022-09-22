@@ -1,6 +1,9 @@
+@import './SCSS-utils/variables';
+
 html {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 18px;
+  color: $text-color-main;
 }
 
 body,

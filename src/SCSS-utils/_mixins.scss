@@ -1,0 +1,41 @@
+@import './functions';
+
+@mixin onDesktopL {
+  @media (min-width: 1440px) {
+    @content;
+  };
+};
+
+@mixin onDesktopM {
+  @media (min-width: 1024px) {
+    @content;
+  };
+};
+
+@mixin onTablet {
+  @media (min-width: 768px) {
+    @content;
+  };
+};
+
+@mixin catalogWidth($width) {
+  min-width: $width;
+  width: $width;
+}
+
+@mixin cardWidth($width) {
+  width: $width;
+
+  &--slim {
+    width: $width * 2 + 20px;
+  }
+}
+
+@mixin cardHeight($width) {
+  height: imageHeigth($width);
+
+  &--slim {
+    height: imageHeigthSlim($width);
+  }
+}
+
