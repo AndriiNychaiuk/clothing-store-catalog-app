@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useState } from 'react';
 import { Product } from '../../types/Product';
 import './CatalogCard.scss';
 
@@ -9,6 +9,8 @@ interface Props {
 }
 
 export const CatalogCard = React.memo<Props>(({ product, isSlim }) => {
+  const [isLike, setLike] = useState(false);
+
   return (
     <li key={product.id} className="catalog-list__card card">
       <div className={classNames('card__container', { 
@@ -27,6 +29,13 @@ export const CatalogCard = React.memo<Props>(({ product, isSlim }) => {
         </div>
         <div className="card__title">{product.title}</div>
         <div className="card__price">{`${product.price} грн`}</div>
+        <button 
+          type="button"
+          className={classNames('card__like', {
+            'card__like--clicked': isLike,
+          })}
+          onClick={() => setLike(!isLike)}
+        />
       </div>
     </li>
   )

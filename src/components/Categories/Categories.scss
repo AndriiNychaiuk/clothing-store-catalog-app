@@ -25,19 +25,21 @@
   &__item {
     position: relative;
     margin: 5px;
+
+    @include onTablet {
+      margin-bottom: 10px;
+    }
   }
 
-  &__button {
-    background-color: $background-main;
+  &__link {
     width: 240px;
-    text-align: start;
     font-size: 12px;
+    text-decoration: none;
     color: $text-color-main;
-    border: 0;
     cursor: pointer;
 
     @include onTablet {
-      font-size: inherit;
+      font-size: inherit; 
     }
 
     &:hover::after {
@@ -50,23 +52,23 @@
       background-color: #eaeaea;
     }
 
-    &--close {
-      position: absolute;
-      width: auto;
-      right: 10px;
-      top: 10px;
-      padding: 0 4px;
-      border: 1px solid $text-color-main;
-      border-radius: 25%;
-
-      &:hover::after {
-        height: 0;
-      }
-    }
-
-    &:disabled {
+    &--active {
       color: $text-color-main;
       font-weight: 600;
+    }
+  }
+
+  &__button--close {
+    position: absolute;
+    width: auto;
+    right: 15px;
+    top: 25px;
+    padding: 0 4px;
+    border: 1px solid $text-color-main;
+    border-radius: 10%;
+
+    &:hover::after {
+      height: 0;
     }
   }
 }

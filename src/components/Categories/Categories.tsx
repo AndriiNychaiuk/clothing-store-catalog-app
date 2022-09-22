@@ -1,26 +1,24 @@
+import classNames from 'classnames';
 import React from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import './Categories.scss';
 
 interface Props {
   categories: string[],
-  filterParameter: string,
   isMenuOpened: boolean,
   isMobile: boolean,
-  onSetFilterParameter: React.Dispatch<React.SetStateAction<string>>,
   onCloseMenu: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 export const Categories = React.memo<Props>(({ 
   categories,
-  filterParameter,
   isMenuOpened,
   isMobile,
-  onSetFilterParameter,
   onCloseMenu,
   
 }) => {
-  console.log('categories');
-  
+  const { search } = useLocation();
+
   return (
     <ul 
       className="App__categories categories"
@@ -31,16 +29,18 @@ export const Categories = React.memo<Props>(({
     >
       {categories.map(category => (
         <li key={category} className="categories__item">
-          <button 
-            className="categories__button"
-            onClick={() => {
-              onSetFilterParameter(category);
-              onCloseMenu(false);
+          <NavLink 
+            to={{
+              pathname: `../${category}`,
+              search,
             }}
-            disabled={filterParameter === category}
+            className={({ isActive }) => classNames('categories__link', {
+              'categories__link--active': isActive, 
+            })}
+            onClick={() => onCloseMenu(false)}
           >
             {category}
-          </button>
+          </NavLink>
         </li>
       ))}
         {isMobile && (

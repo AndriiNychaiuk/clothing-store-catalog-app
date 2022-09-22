@@ -14,9 +14,7 @@ interface Props {
 export const CatalogList = React.memo<Props>(({ 
   products, filterParameter, isSlim
 }) => {
-  console.log('catalog');
-
-  const visibleProducts = useMemo(() => {
+  const visibleProducts = useMemo(() => { 
     return products.filter(product => {
       switch (filterParameter) {
         case SpecialCategories.sale:
@@ -26,6 +24,7 @@ export const CatalogList = React.memo<Props>(({
           return product.rating >= 4;
 
         case SpecialCategories.showAll:
+        case '':
           return true;
 
         default:

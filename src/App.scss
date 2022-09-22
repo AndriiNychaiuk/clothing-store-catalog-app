@@ -29,12 +29,8 @@
 
   &__header {
     margin-bottom: 1rem;
-    display: flex; 
-    justify-content: space-between;
-    align-items: center;
 
     @include onTablet {
-      display: block;
       margin-bottom: 3rem
     }
   }
@@ -47,11 +43,6 @@
     cursor: pointer;
   }
 
-  &__footer {
-    color: #fff;
-    background-color: #000;
-  }
-
   &__title {
     height: 70px;
     line-height: 70px;
@@ -60,6 +51,11 @@
     font-weight: 400;
 
     @include onTablet {
+      height: 100px;
+      line-height: 100px;
+    }
+
+    @include onDesktopM {
       height: 140px;
       line-height: 140px;
     }

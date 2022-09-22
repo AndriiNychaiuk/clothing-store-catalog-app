@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useCallback } from 'react';
+import React from 'react';
 import './GridCatalogButtons.scss';
 
 interface Props {
@@ -13,7 +13,7 @@ export const GridCatalogButtons = React.memo<Props>(({
   isMobile,
   onSetSlim,
 }) => {
-  const createButton = useCallback((num: number) => {
+  const createButtonDecor = (num: number) => {
     const arr: string[] = [];
 
     for (let i = 0; i < num; i++) {
@@ -21,16 +21,18 @@ export const GridCatalogButtons = React.memo<Props>(({
     }
 
     return arr;
-  }, []);
+  };
 
   return (
     <div className="App__buttons buttons">
       <button 
         className="buttons__button"
-        onClick={() => onSetSlim(true)}
+        onClick={() => {
+          onSetSlim(true)
+        }}
         disabled={isSlim}
       >
-        {createButton(2).map((el, i) => (
+        {createButtonDecor(2).map((el, i) => (
           <div key={i} className={classNames(
             'buttons__button-element',
             'buttons__button-element--slim',
@@ -43,10 +45,12 @@ export const GridCatalogButtons = React.memo<Props>(({
 
       <button 
         className="buttons__button"
-        onClick={() => onSetSlim(false)}
+        onClick={() => {
+          onSetSlim(false)
+        }}
         disabled={!isSlim}
       >
-        {createButton(isMobile ? 2 : 4).map((el, i) => (
+        {createButtonDecor(isMobile ? 2 : 4).map((el, i) => (
           <div key={i} className={classNames('buttons__button-element', {
             'buttons__button-element--big': isMobile,
             'buttons__button-element--active': !isSlim,

@@ -4,13 +4,13 @@
 
 .card {
   position: relative;
-  margin: 0 5px 30px;
+  margin-bottom: 30px;
   box-sizing: border-box;
   background-color: $background-main;
   border-color: transparent;
 
   @include onTablet {
-    margin: 0 0 12px;
+    margin-bottom: 12px;
   }
 
   &__container {
@@ -18,7 +18,7 @@
     font-size: 12px;
 
     &--slim {
-      width: calc($card-width-mobile * 2);
+      width: calc($card-width-mobile * 2 + 2vw);
     }
 
     @include onTablet {
@@ -69,7 +69,7 @@
     transition: 0.3s;
 
     &:hover {
-      transform: scale(1.05);
+      transform: scale(1.02);
     }
   }
 
@@ -84,5 +84,43 @@
   &__price {
     position: absolute;
     bottom: 0;
+  }
+
+  &__like {
+    position: absolute;
+    bottom: 25px;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    background-image: url('../../../public/like.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    transition: .3s;
+
+    @include onTablet {
+      bottom: 0;
+    }
+
+    @include onDesktopL {
+      bottom: 40px;
+    }
+
+    &--clicked {
+      background-image: url('../../../public/like-active.svg');
+      animation: pressLike 0.3s alternate 0s 2;
+    }
+  }
+}
+
+@keyframes pressLike {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.2);
   }
 }
