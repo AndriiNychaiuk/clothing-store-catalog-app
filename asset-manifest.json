@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/AndriiNychaiuk.github.io/clothing-store-catalog-app/static/css/main.3dc618aa.css",
+    "main.js": "/AndriiNychaiuk.github.io/clothing-store-catalog-app/static/js/main.9392fbaa.js",
+    "static/media/like.svg": "/AndriiNychaiuk.github.io/clothing-store-catalog-app/static/media/like.d4f6255f3d4e72c6c599.svg",
+    "static/media/like-active.svg": "/AndriiNychaiuk.github.io/clothing-store-catalog-app/static/media/like-active.8006e28ea4c5275057ed.svg",
+    "index.html": "/AndriiNychaiuk.github.io/clothing-store-catalog-app/index.html",
+    "main.3dc618aa.css.map": "/AndriiNychaiuk.github.io/clothing-store-catalog-app/static/css/main.3dc618aa.css.map",
+    "main.9392fbaa.js.map": "/AndriiNychaiuk.github.io/clothing-store-catalog-app/static/js/main.9392fbaa.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3dc618aa.css",
+    "static/js/main.9392fbaa.js"
+  ]
+}
