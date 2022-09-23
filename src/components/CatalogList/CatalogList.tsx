@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import classNames from 'classnames';
 import React, { useEffect, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useLocaleStorage } from '../../customHook/useLocaleStorage';
 import { Product } from '../../types/Product';
 import { CatalogCard } from '../CatalogCard/CatalogCard';
@@ -12,18 +12,18 @@ interface Props {
   visibleProducts: Product[],
   isSlim: boolean,
   isMobile: boolean,
-  searchParams: URLSearchParams
 }
 
 export const CatalogList = React.memo<Props>(({ 
   visibleProducts, 
   isSlim,
   isMobile,
-  searchParams,
 }) => {
   const [page, setPage] = useLocaleStorage('page', 1);
   
   const navigation = useNavigate()
+  const { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
 
   const maxPage = useMemo(() => {
     if (isMobile) {
@@ -37,7 +37,7 @@ export const CatalogList = React.memo<Props>(({
         : visibleProducts.length / 4
       )
     }
-  }, [isSlim])
+  }, [isSlim, visibleProducts])
 
   useEffect(() => {
     searchParams.set('page', `${page}`);
@@ -50,7 +50,7 @@ export const CatalogList = React.memo<Props>(({
       setPage(maxPage);
     }
   }, [isSlim])
-  
+
   return (
     <div className="pagination">
       <ul 
@@ -91,7 +91,7 @@ export const CatalogList = React.memo<Props>(({
             NEXT
             <div 
               className="pagination__arrow pagination__arrow--right" 
-              style={page === maxPage ? { opacity: 0.3 } : {}}
+              style={page >= maxPage ? { opacity: 0.3 } : {}}
             />
           </button>
         </div>

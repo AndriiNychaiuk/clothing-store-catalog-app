@@ -51,7 +51,7 @@ export const Main = React.memo<Props>(({
 
   useEffect(() => {
     const allCategories: string[] = [];
-    const slimCheck = Boolean(search.slice(-4));
+    const slimCheck = search.includes('slim');
 
     clothes.forEach(cloth => {
       if (!allCategories.includes(cloth.category)) {
@@ -97,10 +97,8 @@ export const Main = React.memo<Props>(({
           />
           <CatalogList
             visibleProducts={visibleProducts}
-            searchParams={searchParams} 
             isSlim={isSlim}
             isMobile={isMobile}
-            
           />
         </div>
       </div>
