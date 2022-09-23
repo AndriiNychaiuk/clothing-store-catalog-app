@@ -1,50 +1,100 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import classNames from 'classnames';
-import React, { useMemo } from 'react';
-import { SpecialCategories } from '../../enums/enums';
+import React, { useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useLocaleStorage } from '../../customHook/useLocaleStorage';
 import { Product } from '../../types/Product';
 import { CatalogCard } from '../CatalogCard/CatalogCard';
 import './CatalogList.scss';
+import './Pagination.scss';
 
 interface Props {
-  products: Product[],
-  filterParameter: string,
+  visibleProducts: Product[],
   isSlim: boolean,
+  isMobile: boolean,
+  searchParams: URLSearchParams
 }
 
 export const CatalogList = React.memo<Props>(({ 
-  products, filterParameter, isSlim
+  visibleProducts, 
+  isSlim,
+  isMobile,
+  searchParams,
 }) => {
-  const visibleProducts = useMemo(() => { 
-    return products.filter(product => {
-      switch (filterParameter) {
-        case SpecialCategories.sale:
-          return product.price < 400;
+  const [page, setPage] = useLocaleStorage('page', 1);
+  
+  const navigation = useNavigate()
 
-        case SpecialCategories.bestsellers: 
-          return product.rating >= 4;
+  const maxPage = useMemo(() => {
+    if (isMobile) {
+      return Math.ceil(isSlim 
+        ? visibleProducts.length
+        : visibleProducts.length / 2
+      )
+    } else {
+      return Math.ceil(isSlim 
+        ? visibleProducts.length / 2
+        : visibleProducts.length / 4
+      )
+    }
+  }, [isSlim])
 
-        case SpecialCategories.showAll:
-        case '':
-          return true;
+  useEffect(() => {
+    searchParams.set('page', `${page}`);
 
-        default:
-          return product.category === filterParameter;
-      }
-    });
-  }, [filterParameter, products])
+    navigation(`?${searchParams}`, { replace: true });
+  }, [page])
+
+  useEffect(() => {
+    if (maxPage !== 0 && maxPage < page) {
+      setPage(maxPage);
+    }
+  }, [isSlim])
   
   return (
-    <ul className={classNames('catalog-list', {
-      'catalog-list--slim': isSlim,
-    })}>
-      {visibleProducts
-        .map(product => (
-          <CatalogCard 
-            key={product.id} 
-            product={product}
-            isSlim={isSlim}
-          />
-      ))}
-    </ul>
+    <div className="pagination">
+      <ul 
+        className={classNames('catalog-list', {
+        'catalog-list--slim': isSlim,
+        })}
+        style={{ transform: `translateX(-${100 * (page - 1)}%)` }}
+      >
+        {visibleProducts
+          .map(product => (
+            <CatalogCard 
+              key={product.id} 
+              product={product}
+              isSlim={isSlim}
+            />
+        ))}
+      </ul>
+      <div className="pagination__buttons">
+          <button 
+            type="button" 
+            className="pagination__button"
+            onClick={() => setPage(page - 1)}
+            disabled={page === 1}
+          >
+            PREV
+            <div 
+              className="pagination__arrow pagination__arrow--left" 
+              style={page === 1 ? { opacity: 0.3 } : {}}
+            />
+          </button>
+
+          <button 
+            type="button" 
+            className="pagination__button"
+            onClick={() => setPage(page + 1)}
+            disabled={page >= maxPage}
+          >
+            NEXT
+            <div 
+              className="pagination__arrow pagination__arrow--right" 
+              style={page === maxPage ? { opacity: 0.3 } : {}}
+            />
+          </button>
+        </div>
+    </div>
   );
 }) 

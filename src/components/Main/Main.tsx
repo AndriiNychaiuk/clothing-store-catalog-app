@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { SpecialCategories } from '../../enums/enums';
 import { Product } from '../../types/Product';
 import { CatalogList } from '../CatalogList/CatalogList';
@@ -7,6 +7,7 @@ import { Categories } from '../Categories/Categories';
 import { GridCatalogButtons } from '../GridCatalogButtons/GridCatalogButtons';
 import clothes from '../../api/clothes.json';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import './Main.scss';
 
 interface Props {
   isMenuOpened: boolean,
@@ -29,8 +30,24 @@ export const Main = React.memo<Props>(({
   
   const { categoryName = '' } = useParams();
 
-  console.log(categoryName);
-  
+  const visibleProducts = useMemo(() => { 
+    return products.filter(product => {
+      switch (categoryName) {
+        case SpecialCategories.sale:
+          return product.price < 400;
+
+        case SpecialCategories.bestsellers: 
+          return product.rating >= 4;
+
+        case SpecialCategories.showAll:
+        case '':
+          return true;
+
+        default:
+          return product.category === categoryName;
+      }
+    });
+  }, [categoryName, products])
 
   useEffect(() => {
     const allCategories: string[] = [];
@@ -63,15 +80,15 @@ export const Main = React.memo<Props>(({
   }, [isSlim])
 
   return (
-    <main className="App__main">
-      <div className="App__container">
+    <main className="App__main main">
+      <div className="App__container main__container">
         <GridCatalogButtons
           isSlim={isSlim}
           isMobile={isMobile}
           onSetSlim={setSlim}
         />
 
-        <div className="App__flex">
+        <div className="main__flex">
           <Categories 
             categories={categories} 
             isMenuOpened={isMenuOpened}
@@ -79,9 +96,11 @@ export const Main = React.memo<Props>(({
             onCloseMenu={onSetMenu}
           />
           <CatalogList
-            products={products} 
-            filterParameter={categoryName} 
+            visibleProducts={visibleProducts}
+            searchParams={searchParams} 
             isSlim={isSlim}
+            isMobile={isMobile}
+            
           />
         </div>
       </div>

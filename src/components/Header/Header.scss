@@ -1,4 +1,5 @@
 @import '../../SCSS-utils/mixins';
+@import '../../SCSS-utils/variables';
 
 .header {
   display: flex; 
@@ -7,5 +8,13 @@
 
   @include onTablet {
     display: block;
+  }
+
+  &__open-menu {
+    background-color: transparent;
+    color: $text-color-main;
+    border: 1px solid $text-color-main;
+    border-radius: 10%;
+    cursor: pointer;
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "clothing-store-catalog-app",
   "version": "0.1.0",
-  "homepage": "AndriiNychaiuk.github.io/clothing-store-catalog-app/",
+  "homepage": "https://AndriiNychaiuk.github.io/clothing-store-catalog-app",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",

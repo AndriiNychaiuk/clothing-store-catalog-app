@@ -23,42 +23,36 @@ export const GridCatalogButtons = React.memo<Props>(({
     return arr;
   };
 
-  return (
-    <div className="App__buttons buttons">
-      <button 
-        className="buttons__button"
-        onClick={() => {
-          onSetSlim(true)
-        }}
-        disabled={isSlim}
-      >
-        {createButtonDecor(2).map((el, i) => (
-          <div key={i} className={classNames(
-            'buttons__button-element',
-            'buttons__button-element--slim',
-            { 'buttons__button-element--active': isSlim },
-          )}>
-            {el}
-          </div>
-        ))}
-      </button>
+  const createButton = (
+    squaresNum: number,
+    slim: boolean,
+    size?: 'slim',
+  ) => (
+    <button 
+      className="buttons__button"
+      onClick={() => {
+        onSetSlim(Boolean(size))
+      }}
+    >
+      {createButtonDecor(squaresNum).map((el, i) => (
+        <div key={i} className={classNames(
+          'buttons__button-element',
+          { 
+            'buttons__button-element--active': slim,
+            'buttons__button-element--slim': size, 
+            'buttons__button-element--big': isMobile && !size,
+          },
+        )}>
+          {el}
+        </div>
+      ))}
+    </button>
+  )
 
-      <button 
-        className="buttons__button"
-        onClick={() => {
-          onSetSlim(false)
-        }}
-        disabled={!isSlim}
-      >
-        {createButtonDecor(isMobile ? 2 : 4).map((el, i) => (
-          <div key={i} className={classNames('buttons__button-element', {
-            'buttons__button-element--big': isMobile,
-            'buttons__button-element--active': !isSlim,
-          })}>
-            {el}
-          </div>
-        ))}
-      </button>
+  return (
+    <div className="main__buttons buttons">
+      {createButton(2, isSlim, 'slim')}
+      {createButton(isMobile ? 2 : 4, !isSlim)}
     </div>
   )
 })

@@ -24,16 +24,20 @@
 
   &__item {
     position: relative;
+    top: 10%;
     margin: 5px;
+    text-align: center;
 
     @include onTablet {
+      top: 0;
       margin-bottom: 10px;
+      text-align: start;
     }
   }
 
   &__link {
     width: 240px;
-    font-size: 12px;
+    font-size: 18px;
     text-decoration: none;
     color: $text-color-main;
     cursor: pointer;
@@ -55,6 +59,7 @@
     &--active {
       color: $text-color-main;
       font-weight: 600;
+      pointer-events: none;
     }
   }
 

@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React from 'react';
+import { useLocaleStorage } from '../../customHook/useLocaleStorage';
 import { Product } from '../../types/Product';
 import './CatalogCard.scss';
 
@@ -8,11 +9,20 @@ interface Props {
   isSlim: boolean,
 }
 
-export const CatalogCard = React.memo<Props>(({ product, isSlim }) => {
-  const [isLike, setLike] = useState(false);
+export const CatalogCard = React.memo<Props>(({ 
+  product, 
+  isSlim,
+}) => {
+  const [isLike, setLike] = useLocaleStorage(`${product.id}`, false);
 
   return (
-    <li key={product.id} className="catalog-list__card card">
+    <li 
+      key={product.id} 
+      className={classNames('catalog-list__card card', {
+      'card--slim': isSlim,
+      'card--normal': !isSlim,
+      })}
+    >
       <div className={classNames('card__container', { 
         'card__container--slim': isSlim,
       })}>

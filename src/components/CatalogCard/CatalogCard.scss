@@ -8,9 +8,28 @@
   box-sizing: border-box;
   background-color: $background-main;
   border-color: transparent;
+  transition: 0.3s;
+
+  &--normal {
+    &:not(:nth-child(2n)) {
+      margin-right: 20px;
+    }
+  }
 
   @include onTablet {
     margin-bottom: 12px;
+
+    &--normal {
+      &:not(:nth-child(4n)) {
+        margin-right: 20px;
+      }
+    }
+
+    &--slim {
+      &:not(:nth-child(2n)) {
+        margin-right: 20px;
+      }
+    };
   }
 
   &__container {
@@ -18,7 +37,7 @@
     font-size: 12px;
 
     &--slim {
-      width: calc($card-width-mobile * 2 + 2vw);
+      width: calc($card-width-mobile * 2);
     }
 
     @include onTablet {

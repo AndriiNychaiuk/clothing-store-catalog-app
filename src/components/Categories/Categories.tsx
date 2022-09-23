@@ -21,7 +21,7 @@ export const Categories = React.memo<Props>(({
 
   return (
     <ul 
-      className="App__categories categories"
+      className="main__categories categories"
       style={isMenuOpened 
         ? { transform: 'translateX(0)' } 
         : {}
